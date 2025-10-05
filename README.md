@@ -62,7 +62,8 @@ A full-stack web application for managing educational institutions with role-bas
 3. Configure `config.php` with database credentials
 4. Place files in `htdocs/` directory
 5. Access via `localhost/school/`
-6. 'sample_data.sql' is some sample data  
+6. 'sample_data.sql' is some sample data
+7. starting "w.html" is start page  
 
 ## Default Credentials
 
