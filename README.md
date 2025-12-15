@@ -89,5 +89,6 @@ A full-stack web application for managing educational institutions with role-bas
 - Mobile app version
 - API endpoints for third-party integration
 
-- <img width="1920" height="1080" alt="Wireframe School management system" src="https://github.com/user-attachments/assets/03919f34-d2f2-44a3-af04-9e9f6016cc5d" />
+<img width="1920" height="1080" alt="Wireframe Flowchart Whiteboard" src="https://github.com/user-attachments/assets/13adb51a-d32f-41b6-bc90-984954c5a033" />
+
 
