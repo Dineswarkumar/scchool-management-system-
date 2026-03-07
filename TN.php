@@ -57,28 +57,31 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="t.css">
 </head>
-<body style="color: black;">
+<body>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <header>
         <div class="h-container">
+            <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
             <img id="logo" src="logo.jpg" alt="Logo">
-            <h1>My school</h1>
+            <h1>My School</h1>
             <nav class="nav-links">
-             <a href="TN.php"><img src="n.jpg" style="height:40px; width: 40px; border-radius: 50%;"><br>Notify</a>
-             <a href="teacher_profile.php"><img src="a.jpg" style="height:40px; width: 40px; border-radius: 50%;"><br>Profile</a>
+                <a href="TN.php"><img src="n.jpg" style="height:36px;width:36px;border-radius:50%;" alt="Notify"><br>Notify</a>
+                <a href="teacher_profile.php"><img src="a.jpg" style="height:36px;width:36px;border-radius:50%;" alt="Profile"><br>Profile</a>
             </nav>
         </div>
     </header>
-    <hr style="border: 5px solid rgb(5, 5, 5);">
-    <div class="v-line" style="border-left: 5px solid rgb(5, 5, 5); height: 100%; position: absolute; left: 200px;"></div>
-    <div class="sidenav">
-        <a href="teacher_dash.php">Dashboard</a><br>
-        <a href="tuploads.php">Upload Materials</a><br><br><br><br><br>
-        <a href="logout.php"><img src="logout.jpg"style="height:40px; width: 40px;">Logout</a>
+    <div class="sidenav" id="sidenav">
+        <a href="teacher_dash.php">🏠 Dashboard</a>
+        <a href="tuploads.php">📤 Upload Materials</a>
+        <a href="TN.php">🔔 Notifications</a>
+        <a href="logout.php" style="margin-top:auto;">🚪 Logout</a>
     </div>
 
     <div class="main-content">
         <h2 class="page-title">Notifications & Announcements</h2>
-        <p style="color: #171616;">Send announcements to students and manage notifications</p>
+        <p style="color: var(--text-secondary);">Send announcements to students and manage notifications</p>
 
         <?php if(isset($_GET['success'])): ?>
         <div class="success-message" style="display: block; background-color: #e8f5e9; color: #2e7d32; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
@@ -99,11 +102,11 @@ $conn->close();
 
         <div id="send" class="tab-content active">
             <div class="form-card">
-                <h3 style="color: rgb(230, 139, 21); margin-top: 0;">Create New Announcement</h3>
+                <h3 style="color: var(--primary); margin-top: 0;">Create New Announcement</h3>
                 <form action="send_notification.php" method="POST">
                     <div class="form-group">
-                        <label>Notification Type *</label>
-                        <select name="type" required>
+                        <label class="form-label">Notification Type *</label>
+                        <select name="type" class="form-control" required>
                             <option value="">Select Type</option>
                             <option value="announcement">General Announcement</option>
                             <option value="assignment">Assignment</option>
@@ -114,8 +117,8 @@ $conn->close();
                     </div>
 
                     <div class="form-group">
-                        <label>Send To *</label>
-                        <select name="send_to" required onchange="toggleCourseSelect(this)">
+                        <label class="form-label">Send To *</label>
+                        <select name="send_to" class="form-control" required onchange="toggleCourseSelect(this)">
                             <option value="">Select Recipients</option>
                             <option value="all_students">All My Students</option>
                             <option value="specific_course">Specific Course</option>
@@ -123,8 +126,8 @@ $conn->close();
                     </div>
 
                     <div class="form-group" id="course_select" style="display: none;">
-                        <label>Select Course</label>
-                        <select name="course_id">
+                        <label class="form-label">Select Course</label>
+                        <select name="course_id" class="form-control">
                             <option value="">Select Course</option>
                             <?php foreach ($courses as $course): ?>
                                 <option value="<?php echo $course['id']; ?>">
@@ -135,30 +138,30 @@ $conn->close();
                     </div>
 
                     <div class="form-group">
-                        <label>Title *</label>
-                        <input type="text" name="title" placeholder="Enter notification title" required>
+                        <label class="form-label">Title *</label>
+                        <input type="text" name="title" class="form-control" placeholder="Enter notification title" required>
                     </div>
 
                     <div class="form-group">
-                        <label>Message *</label>
-                        <textarea name="message" placeholder="Enter your message here..." required></textarea>
+                        <label class="form-label">Message *</label>
+                        <textarea name="message" class="form-control" placeholder="Enter your message here..." required></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label>Notification Methods</label>
+                        <label class="form-label">Notification Methods</label>
                         <div class="checkbox-group">
-                            <label>
+                            <label style="color: var(--text-secondary); margin-right: 15px;">
                                 <input type="checkbox" name="notify_portal" checked>
                                 Portal Notification
                             </label>
-                            <label>
+                            <label style="color: var(--text-secondary);">
                                 <input type="checkbox" name="notify_email">
                                 Email Notification
                             </label>
                         </div>
                     </div>
 
-                    <button type="submit" class="btn-submit">📤 Send Announcement</button>
+                    <button type="submit" class="btn-primary">📤 Send Announcement</button>
                 </form>
             </div>
         </div>
@@ -190,7 +193,7 @@ $conn->close();
                     </div>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <p style="text-align: center; padding: 40px; color: #666;">
+                    <p style="text-align: center; padding: 40px; color: var(--text-secondary);">
                         No notifications sent yet. Create your first announcement above!
                     </p>
                 <?php endif; ?>

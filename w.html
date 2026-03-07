@@ -1,32 +1,47 @@
-<!-- welcome page  -->
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>myschool.com</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="W.CSS">
-       
-    </head>
-    <body>
-        <header>
-            <div class="header-container">
+
+<head>
+    <title>myschool.com</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="w.css">
+</head>
+
+<body>
+    <div class="bg-gradient"></div>
+    <div class="bg-texture"></div>
+
+    <header>
+        <div class="header-container">
+            <div class="logo-wrapper">
                 <img id="logo" src="logo.jpg" alt="Logo">
-                <h1>My school</h1>
-                <nav class="nav-links">
-                    <a href="#about">about</a>
-                    <a href="#contact">contact</a>
-                </nav>
+                <h1>My School</h1> 
             </div>
-        </header>
-        <main class="welcome-main">
-            <section class="welcome-section">
-                <h2>Welcome to My School</h2>
-                <p class="welcome-text">Empowering students to achieve excellence in academics and life. Join us to experience a vibrant learning environment, dedicated teachers, and a supportive community.</p>
+            <nav class="nav-links">
+                <a href="w.html">Home</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="welcome-main">
+        <section class="welcome-section glass-card">
+            <div class="content-wrapper">
+                <h2>Welcome to <span class="highlight">MY School </span></h2>
+                <p class="welcome-text">Empowering students to achieve excellence in academics and life. Join us to
+                    experience a vibrant learning environment, dedicated teachers, and a supportive community.</p>
                 <div class="welcome-actions">
-                    <a class="welcome-btn" href="login.php">Login</a>
-                    <a class="welcome-btn" href="reg.php">Sign Up</a>
+                    <a class="welcome-btn primary-btn" href="login.php">Login</a>
+                    <a class="welcome-btn secondary-btn" href="reg.php">Sign Up</a>
                 </div>
-            </section>
-        </main>
-    </body>
+            </div>
+        </section>
+    </main>
+</body>
+
 </html>

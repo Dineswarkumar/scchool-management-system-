@@ -95,28 +95,30 @@ function formatFileSize($filepath) {
     <link rel="stylesheet" href="t.css">
 </head>
 <body>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <header>
         <div class="h-container">
+            <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
             <img id="logo" src="logo.jpg" alt="Logo">
-            <h1>My school</h1>
+            <h1>My School</h1>
             <nav class="nav-links">
-             <a href="TN.php"><img src="n.jpg" style="height:40px; width: 40px; border-radius: 50%;"><br>Notify</a>
-             <a href="A.php"><img src="a.jpg" style="height:40px; width: 40px; border-radius: 50%;"><br>Profile</a>
+                <a href="TN.php"><img src="n.jpg" style="height:36px;width:36px;border-radius:50%;" alt="Notify"><br>Notify</a>
+                <a href="teacher_profile.php"><img src="a.jpg" style="height:36px;width:36px;border-radius:50%;" alt="Profile"><br>Profile</a>
             </nav>
         </div>
     </header>
-    <hr style="border: 5px solid rgb(5, 5, 5);">
-    <div class="v-line" style="border-left: 5px solid rgb(5, 5, 5); height: 100%; position: absolute; left: 200px;"></div>
-    <div class="sidenav">
-        <a href="teacher_dash.php">Dashboard</a><br>
-        <a href="tuploads.php">Upload Materials</a><br>
-        <br><br><br><br>
-        <a href="logout.php"><img src="logout.jpg"style="height:40px; width: 40px;">Logout</a>
+    <div class="sidenav" id="sidenav">
+        <a href="teacher_dash.php">🏠 Dashboard</a>
+        <a href="tuploads.php">📤 Upload Materials</a>
+        <a href="TN.php">🔔 Notifications</a>
+        <a href="logout.php" style="margin-top:auto;">🚪 Logout</a>
     </div>
 
     <div class="main-content">
         <h2 class="page-title">Upload Course Materials</h2>
-        <p style="color: #666;">Share lecture notes, assignments, and study materials with your students</p>
+        <p style="color: var(--text-secondary);">Share lecture notes, assignments, and study materials with your students</p>
 
         <?php if(isset($_GET['success'])): ?>
         <div class="success-message" style="display: block;">
@@ -151,8 +153,8 @@ function formatFileSize($filepath) {
                 
                 <form id="uploadForm" action="upload_process.php" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label>Select Course *</label>
-                        <select name="course_id" required>
+                        <label class="form-label">Select Course *</label>
+                        <select name="course_id" class="form-control" required>
                             <option value="">Choose a course</option>
                             <?php foreach ($courses as $course): ?>
                                 <option value="<?php echo $course['id']; ?>">
@@ -163,8 +165,8 @@ function formatFileSize($filepath) {
                     </div>
 
                     <div class="form-group">
-                        <label>Material Type *</label>
-                        <select name="material_type" required>
+                        <label class="form-label">Material Type *</label>
+                        <select name="material_type" class="form-control" required>
                             <option value="">Select type</option>
                             <option value="lecture_notes">Lecture Notes</option>
                             <option value="assignment">Assignment</option>
@@ -176,27 +178,27 @@ function formatFileSize($filepath) {
                     </div>
 
                     <div class="form-group">
-                        <label>Title *</label>
-                        <input type="text" name="title" placeholder="e.g., Chapter 5 - Derivatives" required>
+                        <label class="form-label">Title *</label>
+                        <input type="text" name="title" class="form-control" placeholder="e.g., Chapter 5 - Derivatives" required>
                     </div>
 
                     <div class="form-group">
-                        <label>Description (Optional)</label>
-                        <textarea name="description" placeholder="Add a brief description..."></textarea>
+                        <label class="form-label">Description (Optional)</label>
+                        <textarea name="description" class="form-control" placeholder="Add a brief description..."></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label>Upload File *</label>
+                        <label class="form-label">Upload File *</label>
                         <div class="file-upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
                             <div class="upload-icon">📁</div>
                             <p class="upload-text"><strong>Click to browse</strong> or drag and drop files here</p>
                             <p style="color: #999; font-size: 12px;">Supported: PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX (Max 50MB)</p>
                         </div>
                         <input type="file" id="fileInput" name="file" class="file-input" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx" required onchange="displayFileName()">
-                        <div id="selectedFile" style="margin-top: 10px; color: #666; font-size: 14px;"></div>
+                        <div id="selectedFile" style="margin-top: 10px; color: var(--text-secondary); font-size: 14px;"></div>
                     </div>
 
-                    <button type="submit" class="btn-upload">📤 Upload Material</button>
+                    <button type="submit" class="btn-primary" style="margin-top: 10px;">📤 Upload Material</button>
                 </form>
             </div>
 
@@ -222,7 +224,7 @@ function formatFileSize($filepath) {
                         </div>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <p style="text-align: center; padding: 40px; color: #666;">No files uploaded yet. Upload your first material above!</p>
+                        <p style="text-align: center; padding: 40px; color: var(--text-secondary);">No files uploaded yet. Upload your first material above!</p>
                     <?php endif; ?>
                 </div>
             </div>

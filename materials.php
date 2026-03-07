@@ -96,64 +96,67 @@ function formatFileSize($filepath) {
     <link rel="stylesheet" href="d.css">
 </head>
 <body>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <header>
-    <div class="h-container">
+        <div class="h-container">
+            <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
             <img id="logo" src="logo.jpg" alt="Logo">
-            <h1>My school</h1>
+            <h1>My School</h1>
             <nav class="nav-links">
-             <a href="N.php"><img src="n.jpg" style="height:40px; width: 40px; border-radius: 50%;"><br>Notify</a>
-             <a href="A.php"><img src="a.jpg" style="height:40px; width: 40px; border-radius: 50%;"><br>User</a>
+                <a href="N.php"><img src="n.jpg" style="height:36px;width:36px;border-radius:50%;" alt="Notify"><br>Notify</a>
+                <a href="A.php"><img src="a.jpg" style="height:36px;width:36px;border-radius:50%;" alt="Profile"><br>Profile</a>
             </nav>
         </div>
     </header>
-    <hr style="border: 5px solid rgb(5, 5, 5);">
-    <div class="sidenav">
-        <a href="dash.php">Dashboard</a><br>
-        <a href="subjects.php">Courses</a><br>
-        <a href="materials.php">Materials</a><br>
-        <a href="grades.php">Grades</a><br>
-        <a href="settings.html">Settings</a><br><br><br><br><br><br><br><br><br>
-        <a href="logout.php"><img src="logout.jpg"style="height:40px; width: 40px;">Logout</a>
+    <div class="sidenav" id="sidenav">
+        <a href="dash.php">🏠 Dashboard</a>
+        <a href="subjects.php">📚 Courses</a>
+        <a href="materials.php">📁 Materials</a>
+        <a href="grades.php">📊 Grades</a>
+        <a href="settings.html">⚙️ Settings</a>
+        <a href="logout.php" style="margin-top:auto;">🚪 Logout</a>
     </div>
 
     <div class="main-content">
         <h2 class="page-title">Course Materials</h2>
-        <p style="color: #666;">Access lecture notes, assignments, and study materials from your courses</p>
+        <p style="color: rgba(255,255,255,0.78);">Access lecture notes, assignments, and study materials from your courses</p>
 
         <?php if (count($materials) > 0): ?>
             <?php foreach ($materials_by_course as $course_name => $course_materials): ?>
             <div class="grades-table" style="margin-top: 30px;">
                 <h3 style="color: rgb(230, 139, 21); margin-top: 0;">📚 <?php echo htmlspecialchars($course_name); ?></h3>
-                <p style="color: #666; margin-bottom: 20px;">
+                <p style="color: rgba(255,255,255,0.75); margin-bottom: 20px;">
                     <?php echo count($course_materials); ?> file(s) available
                 </p>
                 
                 <div style="display: grid; gap: 15px;">
                     <?php foreach ($course_materials as $material): ?>
-                    <div style="background: #f9f9f9; padding: 20px; border-radius: 12px; border-left: 4px solid rgb(230, 139, 21); display: flex; justify-content: space-between; align-items: start;">
+                    <div style="background: rgba(255,255,255,0.08); backdrop-filter:blur(10px); padding: 20px; border-radius: 12px; border-left: 4px solid #f97316; display: flex; justify-content: space-between; align-items: start; border: 1px solid rgba(255,255,255,0.12);">
                         <div style="flex: 1;">
                             <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
                                 <span style="font-size: 32px;"><?php echo getFileIcon($material['file_type']); ?></span>
                                 <div style="flex: 1;">
-                                    <h4 style="margin: 0 0 5px 0; color: #3a3f58; font-size: 18px;">
+                                    <h4 style="margin: 0 0 5px 0; color: white; font-size: 18px;">
                                         <?php echo htmlspecialchars($material['title']); ?>
                                     </h4>
                                     <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
                                         <span style="display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: bold; background-color: rgb(230, 139, 21); color: white;">
                                             <?php echo strtoupper(str_replace('_', ' ', $material['material_type'])); ?>
                                         </span>
-                                        <span style="color: #888; font-size: 13px;">
+                                        <span style="color: rgba(255,255,255,0.72); font-size: 13px;">
                                             📅 <?php echo date('M d, Y', strtotime($material['uploaded_at'])); ?>
                                         </span>
-                                        <span style="color: #888; font-size: 13px;">
+                                        <span style="color: rgba(255,255,255,0.72); font-size: 13px;">
                                             👤 <?php echo htmlspecialchars($material['teacher_name']); ?>
                                         </span>
-                                        <span style="color: #888; font-size: 13px;">
+                                        <span style="color: rgba(255,255,255,0.72); font-size: 13px;">
                                             📦 <?php echo formatFileSize($material['file_path']); ?>
                                         </span>
                                     </div>
                                     <?php if ($material['description']): ?>
-                                    <p style="margin: 10px 0 0 0; color: #666; font-size: 14px;">
+                                    <p style="margin: 10px 0 0 0; color: rgba(255,255,255,0.75); font-size: 14px;">
                                         <?php echo htmlspecialchars($material['description']); ?>
                                     </p>
                                     <?php endif; ?>
@@ -173,12 +176,26 @@ function formatFileSize($filepath) {
             </div>
             <?php endforeach; ?>
         <?php else: ?>
-            <div style="text-align: center; padding: 60px 20px; background: white; border-radius: 15px; margin-top: 30px; box-shadow: 0 3px 15px rgba(0,0,0,0.1);">
+            <div style="text-align: center; padding: 60px 20px; background: rgba(255,255,255,0.07); backdrop-filter:blur(14px); border-radius: 16px; margin-top: 30px; border: 1px solid rgba(255,255,255,0.12);">
                 <div style="font-size: 64px; margin-bottom: 20px;">📚</div>
-                <h3 style="color: rgb(230, 139, 21); margin-bottom: 10px;">No Materials Available</h3>
-                <p style="color: #666;">Your instructors haven't uploaded any course materials yet. Check back soon!</p>
+                <h3 style="color: white; margin-bottom: 10px;">No Materials Available</h3>
+                <p style="color: rgba(255,255,255,0.75);">Your instructors haven't uploaded any course materials yet. Check back soon!</p>
             </div>
         <?php endif; ?>
     </div>
+
+    <script>
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const sidenav = document.getElementById('sidenav');
+        const overlay = document.getElementById('sidebarOverlay');
+        function toggleSidebar() {
+            hamburgerBtn.classList.toggle('open');
+            sidenav.classList.toggle('open');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = sidenav.classList.contains('open') ? 'hidden' : '';
+        }
+        hamburgerBtn.addEventListener('click', toggleSidebar);
+        overlay.addEventListener('click', toggleSidebar);
+    </script>
 </body>
 </html>

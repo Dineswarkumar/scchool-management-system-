@@ -123,25 +123,26 @@ $conn->close();
     <link rel="stylesheet" href="t.css">
 </head>
 <body>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <header>
         <div class="h-container">
+            <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
             <img id="logo" src="logo.jpg" alt="Logo">
-            <h1>My school</h1>
+            <h1>My School</h1>
             <nav class="nav-links">
-             <a href="TN.php"><img src="n.jpg" style="height:40px; width: 40px; border-radius: 50%;"><br>Notify</a>
-             <a href="teacher_profile.php"><img src="a.jpg" style="height:40px; width: 40px; border-radius: 50%;"><br>Profile</a>
+                <a href="TN.php"><img src="n.jpg" style="height:36px;width:36px;border-radius:50%;" alt="Notify"><br>Notify</a>
+                <a href="teacher_profile.php"><img src="a.jpg" style="height:36px;width:36px;border-radius:50%;" alt="Profile"><br>Profile</a>
             </nav>
         </div>
     </header>
-    <hr style="border: 5px solid rgb(5, 5, 5);">
-    <div class="v-line" style="border-left: 5px solid rgb(5, 5, 5); height: 100%; position: absolute; left: 200px;"></div>
-    <div class="sidenav">
-        <a href="teacher_dash.php">Dashboard</a><br>
-        <a href="teacher_courses.php">My Courses</a><br>
-        <a href="tuploads.php">Upload Materials</a><br>
-        <a href="TN.php">Notifications</a><br>
-        <br><br><br><br>
-        <a href="logout.php"><img src="logout.jpg"style="height:40px; width: 40px;">Logout</a>
+    <div class="sidenav" id="sidenav">
+        <a href="teacher_dash.php">🏠 Dashboard</a>
+        <a href="teacher_courses.php">📚 My Courses</a>
+        <a href="tuploads.php">📤 Upload Materials</a>
+        <a href="TN.php">🔔 Notifications</a>
+        <a href="logout.php" style="margin-top:auto;">🚪 Logout</a>
     </div>
 
     <div class="main-content">
@@ -150,133 +151,121 @@ $conn->close();
             <p>Here's an overview of your classes and activities today.</p>
         </div>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <h3>Total Courses</h3>
+        <div class="dashboard-grid">
+            <div class="card">
+                <h3>🏫 Total Courses</h3>
                 <div class="stat-number"><?php echo $total_courses; ?></div>
-                <p class="stat-label">Active this semester</p>
+                <p>Active this semester</p>
             </div>
-
-            <div class="stat-card">
-                <h3>Total Students</h3>
+            <div class="card">
+                <h3>👥 Total Students</h3>
                 <div class="stat-number"><?php echo $total_students; ?></div>
-                <p class="stat-label">Across all courses</p>
+                <p>Across all courses</p>
             </div>
-
-            <div class="stat-card">
-                <h3>Pending Grades</h3>
+            <div class="card">
+                <h3>📝 Pending Grades</h3>
                 <div class="stat-number"><?php echo $pending_grades; ?></div>
-                <p class="stat-label">Students without grades</p>
+                <p>Students without grades</p>
             </div>
-
-            <div class="stat-card">
-                <h3>Materials Uploaded</h3>
+            <div class="card">
+                <h3>📁 Materials</h3>
                 <div class="stat-number"><?php echo $total_uploads; ?></div>
-                <p class="stat-label">Total files</p>
+                <p>Total files uploaded</p>
             </div>
         </div>
 
-        <div class="quick-actions">
-            <a href="tuploads.php" class="quick-action-btn">
-                <span>📤</span>
-                Upload Materials
-            </a>
-            <a href="TN.php" class="quick-action-btn">
-                <span>📢</span>
-                Send Announcement
-            </a>
-            <a href="teacher_courses.php" class="quick-action-btn">
-                <span>📚</span>
-                View Courses
-            </a>
-            <a href="teacher_students.php" class="quick-action-btn">
-                <span>👥</span>
-                View Students
-            </a>
+        <div style="display:flex; flex-wrap:wrap; gap:1rem; margin-bottom:2rem;">
+            <a href="tuploads.php" class="btn-primary">📤 Upload Materials</a>
+            <a href="TN.php" class="btn-primary">📢 Send Announcement</a>
+            <a href="teacher_courses.php" class="btn-secondary">📚 View Courses</a>
+            <a href="teacher_students.php" class="btn-secondary">👥 View Students</a>
         </div>
 
-        <div class="content-grid" style="margin-top: 30px;">
+        <div class="dashboard-grid" style="margin-top:1.5rem;">
             <div class="content-card">
-                <h3 class="card-title">My Courses</h3>
-                
+                <h3 class="card-title">📚 My Courses</h3>
                 <?php if (count($courses) > 0): ?>
+                    <ul class="upcoming-list">
                     <?php foreach ($courses as $course): ?>
-                    <div class="class-item">
-                        <h4>
-                            <?php echo htmlspecialchars($course['course_name']); ?>
-                            <span class="student-count"><?php echo $course['student_count']; ?> students</span>
-                        </h4>
-                        <p>📚 <?php echo htmlspecialchars($course['course_code']); ?></p>
-                        <p>🎓 <?php echo $course['credits']; ?> credits • <?php echo htmlspecialchars($course['semester']); ?></p>
-                        <div class="action-buttons">
-                            <button class="btn btn-primary" onclick="window.location.href='course_details.php?id=<?php echo $course['id']; ?>'">View Details</button>
-                            <button class="btn btn-secondary" onclick="window.location.href='tuploads.php'">Upload Materials</button>
-                        </div>
-                    </div>
+                        <li>
+                            <strong><?php echo htmlspecialchars($course['course_name']); ?>
+                                <span class="status-badge status-active" style="float:right;"><?php echo $course['student_count']; ?> students</span>
+                            </strong>
+                            <small>📚 <?php echo htmlspecialchars($course['course_code']); ?> · <?php echo $course['credits']; ?> credits · <?php echo htmlspecialchars($course['semester']); ?></small>
+                            <div style="margin-top:0.6rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+                                <button class="btn-primary" style="padding:0.35rem 0.9rem;font-size:0.82rem;" onclick="window.location.href='course_details.php?id=<?php echo $course['id']; ?>'">👁 View Details</button>
+                                <button class="btn-secondary" style="padding:0.35rem 0.9rem;font-size:0.82rem;" onclick="window.location.href='tuploads.php'">📤 Upload</button>
+                            </div>
+                        </li>
                     <?php endforeach; ?>
+                    </ul>
                 <?php else: ?>
-                    <p style="text-align: center; padding: 40px; color: #666;">
-                        No courses assigned yet. Contact administration to get courses assigned.
+                    <p style="text-align:center;padding:2.5rem;color:var(--text-secondary);">
+                        No courses assigned yet. Contact administration.
                     </p>
                 <?php endif; ?>
             </div>
 
             <div class="content-card">
-                <h3 class="card-title">Recent Activity</h3>
-                
+                <h3 class="card-title">📋 Recent Activity</h3>
                 <?php if (count($recent_notifications) > 0 || count($recent_uploads) > 0): ?>
-                    
                     <?php if (count($recent_uploads) > 0): ?>
-                        <h4 style="color: rgb(230, 139, 21); font-size: 16px; margin: 15px 0 10px 0;">📤 Recent Uploads</h4>
+                        <h4 style="color:var(--primary);font-size:0.9rem;margin:0.8rem 0 0.5rem;">📤 Recent Uploads</h4>
+                        <ul class="upcoming-list">
                         <?php foreach ($recent_uploads as $upload): ?>
-                        <div class="schedule-item">
-                            <h4><?php echo htmlspecialchars($upload['title']); ?></h4>
-                            <p>📚 <?php echo htmlspecialchars($upload['course_name'] ?: 'General'); ?></p>
-                            <p style="font-size: 12px; color: #888;">
-                                <?php echo date('M d, Y g:i A', strtotime($upload['uploaded_at'])); ?>
-                            </p>
-                        </div>
+                            <li>
+                                <strong><?php echo htmlspecialchars($upload['title']); ?></strong>
+                                <small>📚 <?php echo htmlspecialchars($upload['course_name'] ?: 'General'); ?> · <?php echo date('M d, Y g:i A', strtotime($upload['uploaded_at'])); ?></small>
+                            </li>
                         <?php endforeach; ?>
+                        </ul>
                     <?php endif; ?>
-
                     <?php if (count($recent_notifications) > 0): ?>
-                        <h4 style="color: rgb(230, 139, 21); font-size: 16px; margin: 15px 0 10px 0;">📢 Recent Announcements</h4>
+                        <h4 style="color:var(--primary);font-size:0.9rem;margin:0.8rem 0 0.5rem;">📢 Recent Announcements</h4>
+                        <ul class="upcoming-list">
                         <?php foreach ($recent_notifications as $notif): ?>
-                        <div class="schedule-item">
-                            <h4><?php echo htmlspecialchars($notif['title']); ?></h4>
-                            <p><?php echo htmlspecialchars(substr($notif['message'], 0, 80)) . '...'; ?></p>
-                            <p style="font-size: 12px; color: #888;">
-                                <?php echo date('M d, Y g:i A', strtotime($notif['created_at'])); ?>
-                            </p>
-                        </div>
+                            <li>
+                                <strong><?php echo htmlspecialchars($notif['title']); ?></strong>
+                                <small><?php echo htmlspecialchars(substr($notif['message'], 0, 80)) . '...'; ?></small>
+                                <small style="display:block;color:var(--text-muted);margin-top:0.15rem;"><?php echo date('M d, Y g:i A', strtotime($notif['created_at'])); ?></small>
+                            </li>
                         <?php endforeach; ?>
+                        </ul>
                     <?php endif; ?>
-
                 <?php else: ?>
-                    <p style="text-align: center; padding: 40px; color: #666;">
+                    <p style="text-align:center;padding:2.5rem;color:var(--text-secondary);">
                         No recent activity. Start by uploading materials or sending announcements!
                     </p>
                 <?php endif; ?>
 
-                <div style="margin-top: 20px; padding: 15px; background: #e8f5e9; border-radius: 8px; border-left: 4px solid #4CAF50;">
-                    <h4 style="margin: 0 0 5px 0; color: #2e7d32;">💡 Quick Tips</h4>
-                    <p style="margin: 0; color: #666; font-size: 14px;">
-                        Upload study materials regularly to keep students engaged. Send announcements for important updates.
-                    </p>
+                <div style="margin-top:1.2rem;padding:1rem 1.2rem;background:rgba(34,197,94,0.08);border-radius:12px;border-left:4px solid #15803d;">
+                    <h4 style="margin:0 0 4px 0;color:#15803d;font-size:0.95rem;">💡 Quick Tips</h4>
+                    <p style="margin:0;color:var(--text-secondary);font-size:0.86rem;">Upload study materials regularly to keep students engaged. Send announcements for important updates.</p>
                 </div>
             </div>
         </div>
 
         <?php if ($pending_grades > 0): ?>
-        <div class="content-card" style="margin-top: 20px; border-left: 4px solid #FF9800;">
-            <h3 class="card-title">⚠️ Action Required</h3>
-            <p style="color: #666;">
-                You have <strong><?php echo $pending_grades; ?> student(s)</strong> without grades. 
-                Consider entering grades to keep students updated on their progress.
-            </p>
-            <button class="btn btn-primary" style="margin-top: 10px;">Enter Grades</button>
+        <div class="content-card" style="margin-top:1.5rem; border-left:4px solid #b45309;">
+            <h3 class="card-title" style="color:#b45309;">⚠️ Action Required</h3>
+            <p style="color:var(--text-secondary);">You have <strong><?php echo $pending_grades; ?> student(s)</strong> without grades. Consider entering grades to keep students updated.</p>
+            <button class="btn-primary" style="margin-top:0.75rem;">Enter Grades</button>
         </div>
         <?php endif; ?>
     </div>
+
+    <script>
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const sidenav = document.getElementById('sidenav');
+        const overlay = document.getElementById('sidebarOverlay');
+        function toggleSidebar() {
+            hamburgerBtn.classList.toggle('open');
+            sidenav.classList.toggle('open');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = sidenav.classList.contains('open') ? 'hidden' : '';
+        }
+        hamburgerBtn.addEventListener('click', toggleSidebar);
+        overlay.addEventListener('click', toggleSidebar);
+    </script>
 </body>
 </html>

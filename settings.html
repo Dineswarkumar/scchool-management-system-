@@ -7,34 +7,38 @@
     <link rel="stylesheet" href="d.css">
 </head>
 <body>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <header>
-    <div class="h-container">
+        <div class="h-container">
+            <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
             <img id="logo" src="logo.jpg" alt="Logo">
-            <h1>My school</h1>
+            <h1>My School</h1>
             <nav class="nav-links">
-             <a href="N.php"><img src="n.jpg" style="height:40px; width: 40px; border-radius: 50%;"><br>Notify</a>
-             <a href="A.php"><img src="a.jpg" style="height:40px; width: 40px; border-radius: 50%;"><br>User</a>
+                <a href="N.php"><img src="n.jpg" style="height:36px;width:36px;border-radius:50%;" alt="Notify"><br>Notify</a>
+                <a href="A.php"><img src="a.jpg" style="height:36px;width:36px;border-radius:50%;" alt="Profile"><br>Profile</a>
             </nav>
         </div>
     </header>
-    <hr style="border: 5px solid rgb(5, 5, 5);">
-    <div class="sidenav">
-        <a href="dash.php">Dashboard</a><br>
-        <a href="subjects.php">Courses</a><br>
-        <a href="materials.php">Materials</a><br>
-        <a href="grades.php">Grades</a><br>
-        <a href="settings.html">Settings</a><br><br><br><br><br><br><br><br><br>
-        <a href="logout.php"><img src="logout.jpg"style="height:40px; width: 40px;">Logout</a>
+    <div class="sidenav" id="sidenav">
+        <a href="dash.php">🏠 Dashboard</a>
+        <a href="subjects.php">📚 Courses</a>
+        <a href="materials.php">📁 Materials</a>
+        <a href="grades.php">📊 Grades</a>
+        <a href="settings.html">⚙️ Settings</a>
+        <a href="logout.php" style="margin-top:auto;">🚪 Logout</a>
     </div>
 
     <div class="main-content">
-        <h2 class="page-title">Settings</h2>
-        <p style="color: #666;">Manage your account preferences and notifications</p>
+        <h2 class="page-title">⚙️ Settings</h2>
+        <p style="color: rgba(255,255,255,0.9); font-size: 1.05rem; margin-bottom: 1.5rem;">Manage your account preferences and notifications</p>
 
         <div class="settings-container">
+            <!-- Notification Preferences -->
             <div class="settings-section">
-                <h3 class="section-title">Notification Preferences</h3>
-                
+                <h3 class="section-title">🔔 Notification Preferences</h3>
+
                 <div class="setting-item">
                     <div class="setting-info">
                         <span class="setting-label">Email Notifications</span>
@@ -86,17 +90,18 @@
                 </div>
             </div>
 
+            <!-- Display Settings -->
             <div class="settings-section">
-                <h3 class="section-title">Display Settings</h3>
-                
+                <h3 class="section-title">🖥️ Display Settings</h3>
+
                 <div class="setting-item">
                     <div class="setting-info">
                         <span class="setting-label">Theme</span>
                         <span class="setting-description">Choose your preferred color theme</span>
                     </div>
                     <select class="form-select">
-                        <option value="light" selected>Light Mode</option>
-                        <option value="dark">Dark Mode</option>
+                        <option value="light">Light Mode</option>
+                        <option value="dark" selected>Dark Mode</option>
                         <option value="auto">Auto (System Default)</option>
                     </select>
                 </div>
@@ -115,8 +120,9 @@
                 </div>
             </div>
 
+            <!-- Privacy & Security -->
             <div class="settings-section">
-                <h3 class="section-title">Privacy & Security</h3>
+                <h3 class="section-title">🔒 Privacy &amp; Security</h3>
 
                 <div class="setting-item">
                     <div class="setting-info">
@@ -133,14 +139,13 @@
                         <span class="setting-label">Change Password</span>
                         <span class="setting-description">Update your account password</span>
                     </div>
-                    <button class="btn-secondary">Change Password</button>
+                    <button class="btn-secondary" style="border:none; padding:0.75rem 1.5rem; border-radius:12px; cursor:pointer; font-weight:700; background:rgba(255,255,255,0.2); color:white; border:1px solid rgba(255,255,255,0.3); transition:all 0.3s ease;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">Change Password</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Simple demo functionality for toggles
         document.querySelectorAll('.toggle-switch').forEach(toggle => {
             toggle.addEventListener('click', function() {
                 this.classList.toggle('active');

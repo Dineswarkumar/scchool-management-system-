@@ -7,29 +7,32 @@
     <link rel="stylesheet" href="d.css">
 </head>
 <body>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <header>
-    <div class="h-container">
+        <div class="h-container">
+            <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
             <img id="logo" src="logo.jpg" alt="Logo">
-            <h1>My school</h1>
+            <h1>My School</h1>
             <nav class="nav-links">
-             <a href="N.php"><img src="n.jpg" style="height:40px; width: 40px; border-radius: 50%;"><br>Notify</a>
-             <a href="A.php"><img src="a.jpg" style="height:40px; width: 40px; border-radius: 50%;"><br>User</a>
+                <a href="N.php"><img src="n.jpg" style="height:36px;width:36px;border-radius:50%;" alt="Notify"><br>Notify</a>
+                <a href="A.php"><img src="a.jpg" style="height:36px;width:36px;border-radius:50%;" alt="Profile"><br>Profile</a>
             </nav>
         </div>
     </header>
-    <hr style="border: 5px solid rgb(5, 5, 5);">
-    <div class="sidenav">
-        <a href="dash.php">Dashboard</a><br>
-        <a href="subjects.php">Courses</a><br>
-        <a href="materials.php">Materials</a><br>
-        <a href="grades.php">Grades</a><br>
-        <a href="settings.html">Settings</a><br><br><br><br><br><br><br><br><br>
-        <a href="logout.php"><img src="logout.jpg"style="height:40px; width: 40px;">Logout</a>
+    <div class="sidenav" id="sidenav">
+        <a href="dash.php">🏠 Dashboard</a>
+        <a href="subjects.php">📚 Courses</a>
+        <a href="materials.php">📁 Materials</a>
+        <a href="grades.php">📊 Grades</a>
+        <a href="settings.html">⚙️ Settings</a>
+        <a href="logout.php" style="margin-top:auto;">🚪 Logout</a>
     </div>
 
     <div class="main-content">
         <h2 class="page-title">My Courses</h2>
-        <p style="color: #666;">Manage and track your enrolled courses</p>
+        <p style="color: rgba(255,255,255,0.80);">Manage and track your enrolled courses</p>
 
         <div class="courses-grid">
             <div class="course-card">
@@ -219,5 +222,19 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const sidenav = document.getElementById('sidenav');
+        const overlay = document.getElementById('sidebarOverlay');
+        function toggleSidebar() {
+            hamburgerBtn.classList.toggle('open');
+            sidenav.classList.toggle('open');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = sidenav.classList.contains('open') ? 'hidden' : '';
+        }
+        hamburgerBtn.addEventListener('click', toggleSidebar);
+        overlay.addEventListener('click', toggleSidebar);
+    </script>
 </body>
 </html>
